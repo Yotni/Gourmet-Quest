@@ -1,4 +1,4 @@
-package com.ratatouille.Models;
+package com.ratatouille;
 
 public class gourmetQuest {
 

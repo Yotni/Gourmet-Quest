@@ -1,5 +1,5 @@
 package com.ratatouille.Models;
 
-public class OilCondiments {
+public class OilCondiments extends FoodCategories {
 
 }

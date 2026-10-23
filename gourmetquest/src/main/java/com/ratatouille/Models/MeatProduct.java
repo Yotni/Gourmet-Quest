@@ -1,5 +1,5 @@
 package com.ratatouille.Models;
 
-public class MeatProduct {
+public class MeatProduct extends FoodCategories {
 
 }
