@@ -1,4 +1,4 @@
-package oop.gourmetquest.Model;
+package oop.ratatouille.Model;
 
 import java.util.*;
 
