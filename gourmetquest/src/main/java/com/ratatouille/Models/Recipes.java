@@ -1,4 +1,4 @@
-package oop.ratatouille.Model;
+package com.ratatouille.Model;
 
 import java.util.*;
 
