@@ -3,7 +3,7 @@ package com.ratatouille;
 import java.io.File;
 import java.util.*;
 
-import com.ratatouille.Model.Recipes;
+import com.ratatouille.Models.Recipes;
 
 public class App {
     public static final Scanner scanner = new Scanner(System.in);
