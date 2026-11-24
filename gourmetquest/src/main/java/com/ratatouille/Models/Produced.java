@@ -1,5 +1,93 @@
 package com.ratatouille.Models;
 
+import java.util.*;
+
+import com.ratatouille.App;
+
 public class Produced extends FoodCategories {
+
+    public static final Scanner scanner = new Scanner(System.in);
+
+    //https://ospi.k12.wa.us/sites/default/files/2023-08/vegetablesa-z.pdf:
+    public static List<String> listOfVegetables= List.of("Artichoke", "Broccoli", "Brussels Sprouts", "Cabbage", "Savoy Cabbage", "Carrot", 
+    "Cauliflower", "Celeriac", "Celery", "Chard", "Chicory", "Corn", "Cress", "Cucumber", "Garlic", "Green Bean", "Kale", "Leek", "Lettuce",  "Mushroom", 
+    "Onion", "Parsnip", "Pea", "Pepper", "Potato", "Pumpkin", "Radicchio", "Radish", "Rhubarb", "turnip", "Shallots", "Spinach", "Squash", "Swede", 
+    "Sweet Potato", "Tomato", "Chestnut"
+    );
+
+    public static List<String> listOfFruits = List.of("Apple", "Mango", "Banana", "Orange", "Grapes", "Pineapple", "Watermelon", "Papaya", 
+    "Guava", "Pear", "Peach", "Plum", "Cherry", "Strawberry", "Blueberry", "Raspberry", "Blackberry", "Kiwi", "Avocado", "Coconut", "Pomegranate", 
+    "Lemon", "Lime", "Calamansi", "Pomelo", "Melon", "Cantaloupe", "Dragon Fruit", "Jackfruit", "Durian", "Rambutan", "Lychee", 
+    "Mangosteen", "Lanzones", "Santol", "Guyabano", "Chico", "Duhat", "Atis", "Starfruit", "Passion Fruit",  "Soursop", "Tamarind", "Water Apple", 
+    "Persimmon", "Fig", "Dates", "Apricot"
+    );                                 
+
+
+    List<String> Vegetables;
+    List<String> Fruits;
+    
+    public Produced () {
+        this.Vegetables = new ArrayList<> ();
+        this.Fruits = new ArrayList<> ();
+    }
+
+    @Override
+    public void gatherIngredients(){
+        // Guys pwede pala toh sa java hahahahhahaha ang galing
+        App.clearScreen();
+        Produced: while (true) {
+            System.out.println("What do you want to gather? [X to Exit]");
+            System.out.println("[1] Vegetables \n[2] Fruits");
+            System.out.println("-".repeat(30));
+            System.out.print("Select an option: ");
+            String producedPath = scanner.nextLine();
+
+            switch (producedPath.toLowerCase()) {
+                case "1":
+                    CategoriesPrintFormat(listOfVegetables);
+                    ingredientList = listOfVegetables;
+                    break;
+                case "2":
+                    CategoriesPrintFormat(listOfFruits);
+                    ingredientList = listOfFruits;
+                    break;
+                case "x":
+                    break Produced;
+                default:
+                    App.handleError();
+                    continue;
+            }
+            gatheringIngredients (producedPath, ingredientList);
+            App.clearScreen();
+        }
+            
+    } 
+    
+    @Override 
+    protected boolean isduplicate (String ingredient) {
+        if (Vegetables.contains(ingredient) || Fruits.contains(ingredient)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override 
+    protected void appendtoList (String ingredientPath, String ingredient) {
+        if (ingredientPath.equals("1")) {
+            Vegetables.add(ingredient);
+        }
+        else {
+            Fruits.add(ingredient);
+        }
+        System.out.println ("The ingredient " + ingredient + " is added on the list");
+    }
+    
+    public List<String> getVegetables () {
+        return Vegetables;
+    }
+
+    public List<String> getFruits () {
+        return Fruits;
+    }
 
 }

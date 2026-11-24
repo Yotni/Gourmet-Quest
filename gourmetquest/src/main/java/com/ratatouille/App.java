@@ -145,7 +145,7 @@ public class App {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    public static void invalidInput() {
+    public static void handleError() {
         clearScreen();
         System.out.println("Input is invalid!");
         System.out.println("-".repeat(150));
