@@ -1,5 +1,5 @@
 package com.ratatouille;
 
-public class DataHandler {
+public class FileHandler {
 
 }

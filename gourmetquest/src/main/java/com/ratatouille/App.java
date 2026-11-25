@@ -88,13 +88,13 @@ public class App {
                 break savedrecipes;
             }
 
-            List<Recipes> listOfResults = oop.gourmetquest.DataHandler.FileHandler.deserialize(FilePathSaving);
+            List<Recipes> listOfResults = oop.gourmetquest.FileHandler.FileHandler.deserialize(FilePathSaving);
 
             if (listOfResults.isEmpty()) {
                 System.out.println("Your saved recipes is empty!");
             }
             else {
-                oop.gourmetquest.DataHandler.FileHandler.outputRecipes(listOfResults);
+                FileHandler.outputRecipes(listOfResults);
 
             }
 
@@ -145,7 +145,7 @@ public class App {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    public static void handleError() {
+    public static void invalidInput() {
         clearScreen();
         System.out.println("Input is invalid!");
         System.out.println("-".repeat(150));
