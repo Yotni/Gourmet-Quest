@@ -2,14 +2,24 @@ package com.ratatouille;
 
 import java.io.File;
 import java.util.*;
-
-import com.ratatouille.Models.Recipes;
+import com.ratatouille.Models.*;
 
 public class App {
-    public static final Scanner scanner = new Scanner(System.in);
-    public static final GourmetQuest gourmetQuest = new GourmetQuest();
-    private static final File FilePathSaving = new File("gourmetquest\\src\\main\\java\\com\\ratatouille\\Data\\Breakfast.json");
+    // private static File FilePathRecipes = FileHandler.FilePathRecipes;
+    private static File FilePathSaving = FileHandler.FilePathSaving;
+    private static File FilePathToDoList = FileHandler.FilePathToDoList;
 
+    public static final Scanner scanner = new Scanner(System.in);
+    public static final Produced produced = new Produced();
+
+    public static final MeatProduct meatProduct = new MeatProduct();
+    public static final HerbSpices herbSpices = new HerbSpices();
+    public static final Dairy dairy = new Dairy();
+    public static final OilCondiments oilCondiments = new OilCondiments();
+    public static final Pantry pantry = new Pantry();
+
+    public static FileHandler fileHandler = new FileHandler(produced, meatProduct, herbSpices, dairy, oilCondiments, pantry);
+    public static GourmetQuest gourmetQuest = new GourmetQuest(produced, meatProduct, herbSpices, dairy, oilCondiments, pantry, fileHandler);
 
     public static void main( String[] args ){
 
