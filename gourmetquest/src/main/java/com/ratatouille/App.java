@@ -1,6 +1,8 @@
 package com.ratatouille;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import com.ratatouille.Models.*;
 
@@ -143,28 +145,84 @@ public class App {
 
     //     int pickrandomRecipe = scanner.nextInt();
 
-
     // }
 
-
-
-
-
-
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
+        System.out.print("\033[H\033[2J\033[3J");
         System.out.flush();
     }
-    public static void invalidInput() {
+    //this is just for invalid input wihtout try catch.
+    //method overriding
+    public static void handleError() {
         clearScreen();
-        System.out.println("Input is invalid!");
+        System.out.println("Invalid input. Please enter a valid input!");
         System.out.println("-".repeat(150));
+    }
+
+    public static void handleError(String ErrorType) {
+
+        if (ErrorType.equals("notNumber")) {
+            clearScreen();
+            System.out.println("Input Error: Please only enter a number!");
+            System.out.println("-".repeat(150));
+        }
+        else if (ErrorType.equals("OutOfRange")) {
+            clearScreen();
+            System.out.println("Input Error: Recipe number is out of range!");
+            System.out.println("-".repeat(150));
+        }
+        else if (ErrorType.equals("FileNotExist")) {
+            clearScreen();
+            System.out.println(" File Error: A file is missing!");
+            System.out.println("-".repeat(150));
+        } 
+        else {
+            clearScreen();
+            System.out.println("Invalid input. Please enter a valid input!");
+            System.out.println("-".repeat(150));
+        }
+    }
+
+    public static void handleException(Exception e) {
+
+        if (e instanceof NumberFormatException) {
+            clearScreen();
+            System.out.println("Error: Please enter numbers only!");
+            System.out.println("-".repeat(150));
+        }
+        else if (e instanceof IndexOutOfBoundsException) {
+            clearScreen();
+            System.out.println("Error: Recipe number is out of range!");
+            System.out.println("-".repeat(150));
+        }
+        else if (e instanceof NullPointerException) {
+            clearScreen();
+            System.out.println("Error: Something is null!");
+            System.out.println("-".repeat(150));
+        }
+        else if (e instanceof InputMismatchException) {
+            clearScreen();
+            System.out.println("Invalid input. Please enter a valid number!");
+            System.out.println("-".repeat(150));
+        }else if (e instanceof FileNotFoundException ) {
+            clearScreen();
+            System.out.println("File Exception: Unable to access the required file");
+            System.out.println("-".repeat(150));
+        }
+        else if (e instanceof IOException) {
+            clearScreen();
+            System.out.println("File Exception: Unable to read or save the file");
+            System.out.println("-".repeat(150));
+        }
+        else {
+            clearScreen();
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("-".repeat(150));
+        }
 
     }
+
     public static void programmedClosed(){
         System.exit(0);
     }
-
-
-
 }

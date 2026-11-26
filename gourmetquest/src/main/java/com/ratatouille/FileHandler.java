@@ -61,6 +61,63 @@ public class FileHandler {
         }
         return listOfResults;
     }
+    // filtering every items
+    public static  List<Recipes> filteringAll (List<String> allIngredient) throws IOException {
+        List<Recipes> recipes = deserialize(FilePathRecipes);
+
+        List<Recipes> listOfResults = new ArrayList<>();
+
+        for (Recipes recipe : recipes) {
+            boolean allRecipeIngredientsFound = true;
+            for (String recipeIngredient : recipe.getIngredients()) {
+                boolean found = false;
+                for (String ingredient : allIngredient) {
+                    if (recipeIngredient.toLowerCase().contains(ingredient.toLowerCase())) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    allRecipeIngredientsFound = false;
+                    break;
+                }
+            }
+
+            if (allRecipeIngredientsFound) {
+                listOfResults.add(recipe);
+            }
+        }
+        return listOfResults;
+    }
+    
+    //Output saved or data recipes
+    public static void outputRecipes (List<Recipes> listOfResults) {
+        int count = 1;
+            for(Recipes recipe : listOfResults){
+                System.out.println("-".repeat(150));
+                System.out.println(count + " -- " + recipe.getName());
+                count++;
+            } 
+    }
+
+    //filtering thorgh ingredients At least one
+    public static  List<Recipes> filteringAtLeast1 (List<String> anyIngredient) throws IOException {
+        List<Recipes> recipes = deserialize(FilePathRecipes);
+
+        List<Recipes> listOfResults = new ArrayList<>();
+
+        for (Recipes recipe : recipes ) {
+            for (String RecipeIngredient : recipe.getIngredients()) {
+                for (String ingredient : anyIngredient) {
+                    if(RecipeIngredient.toLowerCase().contains(ingredient.toLowerCase())) {
+                    listOfResults.add(recipe);
+                    }
+                } 
+            }
+        }
+        return listOfResults;
+    }
+    // This will removed ingredients automcatically.
 
 
 
