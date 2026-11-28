@@ -12,11 +12,11 @@ public class Dairy extends FoodCategories{
     public static final Scanner scanner = new Scanner(System.in);
 
     public static List<String> listOfMilks = List.of("Whole Milk", "Reduced-Fat", "Skim", "Sheep Milk", "Goat Milk", "Soy Milk", "Almond Milk", "Oat Milk", "Coconut Milk",
-                                                    "Pea Milk", "Evaporated milk", "Condensed Milk", "Fresh Milk"
+                                                    "Pea Milk", "Evaporated milk", "Condensed Milk", "Fresh Milk", "Buttermilk"
                                                     );
-    public static List<String> listOfCheeses = List.of("Cheddar", "Mozzarella", "Gouda", "Parmesan", "Feta", "Cream Cheese", "Blue Cheese" ,"American Cheese");
+    public static List<String> listOfCheeses = List.of("Cheddar", "Mozzarella", "Gouda", "Parmesan", "Feta", "Cream Cheese", "Blue Cheese" ,"American Cheese", "Cream Cheese");
     public static List<String> listOfCreams = List.of("Whipped Cream", "Light Cream", "Heavy Cream", "Clotted Cream ", "");
-    public static List<String> listOfbutters = List.of("Unsalted Butter", "Cultured Butter", "Grass-Fed Butter", "Sweet Cream");
+    public static List<String> listOfbutters = List.of("butter", "Unsalted Butter", "Cultured Butter", "Grass-Fed Butter", "Sweet Cream");
 
     List<String> milks;
     List<String> cheeses;

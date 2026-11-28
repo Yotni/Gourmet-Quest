@@ -35,7 +35,7 @@ public class Pantry extends FoodCategories{
     "Granulated Sugar", "Molasses", "Corn Syrup", "Honey",
 
     // Other Staples
-    "Eggs", "Butter", "Milk", "Cream", "Buttermilk", "Cream Cheese", "Shortening", "Margarine"
+    "Shortening", "Margarine"
 );
 
 

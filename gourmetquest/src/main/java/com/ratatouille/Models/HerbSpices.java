@@ -1,5 +1,89 @@
 package com.ratatouille.Models;
 
+import java.util.*;
+
+import com.ratatouille.App;
+
 public class HerbSpices extends FoodCategories {
+    
+    public static final Scanner scanner = new Scanner(System.in);
+
+    public static List<String> listOfHerbs = List.of("Basil", "Rosemary", "Parsley", "Cilantro", "Oregano","Mint", "Chives", "Bay Leaf", 
+    "Lemongrass", "Curry Leaves", "Celery Leaf", "Thyme", "Dill", "Sage", "Tarragon", "Marjoram", "Fennel Leaves", "Pandan Leaves",
+    "Kaffir Lime Leaves", "Bay Laurel"
+    );
+    public static List<String> listOfSpices = List.of("Salt", "Cinnamon", "Anise", "Caraway", "Ginger", "Cassia", "Cardamom", "Onion Powder", 
+    "Garlic Powder", "Chili Pepper", "Cumin", "Paprika", "Wasabi", "Jalapeño", "Black Pepper", "Turmeric", "Bay Leaves", "Smoked Paprika", "Cayenne Pepper", 
+    "Red Pepper Flakes", "Dried Oregano", "Dried Thyme", "Nutmeg", "Curry Powder", "Allspice", "White Pepper", "Cloves", "Coriander Seeds", "Mustard Seeds", 
+    "Fennel Seeds", "Star Anise", "Chili Powder", "Garlic Flakes", "Onion Flakes"
+    );
+    List<String> herbs;
+    List<String> spices;
+
+
+    public HerbSpices() {
+        this.herbs = new ArrayList<> ();
+        this.spices = new ArrayList<> ();
+    }
+
+
+    @Override 
+    public void gatherIngredients() {
+        App.clearScreen();
+        HerbSpices : while (true) {
+            System.out.println("Gather Herbs and Spices! [X to Exit]");
+            System.out.println("[1] Herbs \n[2] Spices");
+            System.out.println("-".repeat(30));
+            System.out.print("Select an option: ");
+            String herbsSpicesPath = scanner.nextLine();
+
+            switch (herbsSpicesPath.toLowerCase()) {
+                case "1":
+                    CategoriesPrintFormat(listOfHerbs);
+                    ingredientList = listOfHerbs;
+                    break;
+                case "2":
+                    CategoriesPrintFormat(listOfSpices);
+                    ingredientList = listOfSpices;
+                    break;
+                case "x":
+                    break HerbSpices;
+                default:
+                    App.handleError();
+                    continue;
+            }
+            gatheringIngredients (herbsSpicesPath, ingredientList);
+            App.clearScreen();
+        }
+    }
+
+    @Override 
+    protected boolean isduplicate (String ingredient) {
+        if (herbs.contains(ingredient) || spices.contains(ingredient)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void appendtoList (String ingredientPath, String ingredient) {
+        if (ingredientPath.equals("1")) {
+            herbs.add(ingredient);
+        }
+        else {
+            spices.add(ingredient);
+        }
+        System.out.println ("The ingredient " + ingredient + " is added on the list");
+    }
+
+
+    //getters methods
+    public List<String> getHerbs () {
+        return herbs;
+    }
+
+    public List<String> getSpices () {
+        return spices;
+    }
 
 }
