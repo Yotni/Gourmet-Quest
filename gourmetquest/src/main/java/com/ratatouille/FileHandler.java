@@ -36,6 +36,7 @@ public class FileHandler {
         this.oilCondiments = oilCondiments;
         this.pantry = pantry;
     }
+
     public static List<Recipes> deserialize(File Filepath) throws IOException{
         if (Filepath == null || !Filepath.exists()) {
             throw new IOException();
@@ -43,6 +44,68 @@ public class FileHandler {
 
         return mapper.readValue(Filepath, new TypeReference<List<Recipes>>() {});
     }
+
+    public static void serialize(Recipes pickRecipe, File FilePath) throws IOException {
+        if (!FilePath.exists()) {
+             Files.writeString(FilePath.toPath(), "[]");
+        }
+ 
+        List<Recipes> recipes = deserialize(FilePath);
+
+        boolean isSaved = false;
+        for (Recipes Recipe : recipes) {
+            if(Recipe.getName().equalsIgnoreCase(pickRecipe.getName())) {
+                isSaved = true;
+                break;
+            }
+        }
+        if (!isSaved) {
+            recipes.add(pickRecipe);
+            App.clearScreen();
+            System.out.println("Successfully added: " + pickRecipe.getName());
+            System.out.println("-".repeat(150));
+        }
+        else {
+            if(FilePath.equals(FilePathSaving)) {
+                App.clearScreen();
+                System.out.println( "The recipe " + pickRecipe.getName() + " was already saved");
+            }
+            else if (FilePath.equals(FilePathToDoList)) {
+                App.clearScreen();
+                System.out.println( "The recipe " + pickRecipe.getName() + " is already on your to do list.");
+            }
+
+            System.out.println("-".repeat(150));
+
+
+        }
+
+        mapper.writerWithDefaultPrettyPrinter().writeValue(FilePath, recipes);
+
+    }
+
+    public static void removedARecipe(Recipes selectedItem, List<Recipes> listOfResults, String CallerType) throws IOException{
+        if (CallerType.equalsIgnoreCase("SavedRecipes")) {
+
+            listOfResults.remove(selectedItem);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(FilePathSaving, listOfResults);
+
+            App.clearScreen();
+            System.out.println(selectedItem.getName() + " was removed from saved recipes");
+
+        }
+        else if (CallerType.equalsIgnoreCase("toDoList")) {
+            listOfResults.remove(selectedItem);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(FilePathToDoList, listOfResults);
+
+            App.clearScreen();
+            System.out.println(selectedItem.getName() + " was removed from To do list");
+        }
+        System.out.println("-".repeat(150));
+    }
+
     public static List<Recipes> searchByName (String search) throws IOException{
 
         List<Recipes> recipes = deserialize(FilePathRecipes);
@@ -118,8 +181,58 @@ public class FileHandler {
         return listOfResults;
     }
     // This will removed ingredients automcatically.
+    public List<String> ouputIngredientsToRemoved(String ingredientsPick) {
+        List<String> totalBasketsByCategory = null;
+        if (ingredientsPick.equalsIgnoreCase("1")) {
+            List<String> basketVegetables = produced.getVegetables();
+            List<String> basketFruits = produced.getFruits();
+            totalBasketsByCategory = combineBaskets(basketVegetables, basketFruits);
 
+        }
+        else if (ingredientsPick.equalsIgnoreCase("2")) {
+            List<String> basketLandMeats = meatProduct.getLandMeats();
+            List<String> basketFishes = meatProduct.getFishes();
+            List<String> basketProcessedMeats = meatProduct.getProcessedMeats();
+            totalBasketsByCategory = combineBaskets(basketLandMeats, basketFishes, basketProcessedMeats);
+        }
+        else if (ingredientsPick.equalsIgnoreCase("3")) {
+            List<String> basketSpices = herbSpices.getSpices();
+            List<String> basketHerbs = herbSpices.getHerbs();
+            totalBasketsByCategory = combineBaskets(basketSpices, basketHerbs);
+        }
+        else if (ingredientsPick.equalsIgnoreCase("4")) {
+            List<String> basketCondiments = oilCondiments.getCondiments();
+            List<String> basketSauces = oilCondiments.getSauces();
+            List<String> basketOils = oilCondiments.getOils();
+            totalBasketsByCategory = combineBaskets(basketCondiments, basketSauces, basketOils);
+        }
+        else if (ingredientsPick.equalsIgnoreCase("5")) { 
+           List<String> basketMilks = dairy.getMilks();
+            List<String> basketCheeses= dairy.getCheeses();
+            List<String> baskettCreams = dairy.getCreams();
+            List<String> basketButters = dairy.getButters();
+            totalBasketsByCategory = combineBaskets(basketMilks, basketCheeses, baskettCreams, basketButters);
+        }
+        else if (ingredientsPick.equalsIgnoreCase("6")) { 
+            List<String> basketGrains = pantry.getGrains();
+            List<String> basketCannedGoods = pantry.getCannedGoods();
+            List<String> basketBakingStaples = pantry.getBakingStaples();
+            totalBasketsByCategory = combineBaskets(basketGrains, basketCannedGoods, basketBakingStaples);
+        }
+        return totalBasketsByCategory;
+    }
 
+    @SafeVarargs
+    public final List<String> combineBaskets(List<String>... baskets) {
 
+    List<String> totalBasketsByCategory  = new ArrayList<>();
 
+    for (List<String>  basket : baskets) {
+        for (String player : basket) {
+            totalBasketsByCategory.add(player);
+        }
+    }
+    return totalBasketsByCategory;
+    }
+    
 }
